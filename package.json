@@ -1,0 +1,19 @@
+{
+  "name": "crud_operations_project",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "TOPAZ",
+  "license": "ISC", 
+  "description": "This is my crud_operations_project",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongo": "^0.1.0"
+  }
+}
