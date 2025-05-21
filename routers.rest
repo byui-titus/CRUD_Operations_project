@@ -1,0 +1,6 @@
+###getall 
+GET http://localhost:3000/products/
+
+###getone 
+GET http://localhost:3000/products/
+
