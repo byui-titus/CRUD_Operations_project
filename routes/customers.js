@@ -7,10 +7,10 @@ router.get('/', CustomerCotroller.getAll);
 
 router.get('/:id', CustomerCotroller.getSingle);
 
-// router.post('/', ProductCotroller.createContact);
+router.post('/', CustomerCotroller.createCustomer);
 
-// router.put('/:id', ProductCotroller.updateContact);
+router.put('/:id', CustomerCotroller.updateCustomer);
 
-// router.delete('/:id', ProductCotroller.deleteContact);
+router.delete('/:id', CustomerCotroller.deleteCustomer);
 
 module.exports = router;
