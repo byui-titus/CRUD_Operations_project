@@ -22,16 +22,40 @@ const mongodb = require('../data/database');
  };
 
  const createProduct = async (req, res) => {
-  const product  = {
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    inStock: req.body.inStock,
-    brand: req.body.brand,
-    createdAt: req.body.createdAt
+
+  const { name, description, price, category, inStock, brand, createdAt } = req.body;
+
+  // ✅ Simple validation
+  if (!name || name.length < 2) {
+    return res.status(400).json({ message: 'Name is required and must be at least 2 characters.' });
+  }
+
+  if (!description || description.length < 5) {
+    return res.status(400).json({ message: 'Description must be at least 5 characters.' });
+  }
+
+const parsedPrice = parseFloat(price);
+if (isNaN(parsedPrice) || parsedPrice < 0) {
+  return res.status(400).json({ message: 'Price must be a non-negative number.' });
+}
+
+  if (typeof inStock !== 'boolean') {
+    return res.status(400).json({ message: 'inStock must be a boolean.' });
+  }
+
+  if (!brand) {
+    return res.status(400).json({ message: 'Brand is required.' });
+  }
+
+  const product = {
+    name,
+    description,
+    price,
+    category: category || null,
+    inStock,
+    brand,
+    createdAt: createdAt ? new Date(createdAt) : new Date()
   };
- 
    try {
     const response = await mongodb.getDatabase().db().collection('products').insertOne(product);
     if (response.acknowledged) {
@@ -47,14 +71,37 @@ const mongodb = require('../data/database');
 const updateProduct = async (req, res) => {
   const productId = new ObjectId(req.params.id);
 
-  const product  = {
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    inStock: req.body.inStock,
-    brand: req.body.brand,
-    createdAt: req.body.createdAt
+ const { name, description, price, category, inStock, brand, createdAt } = req.body;
+
+  // ✅ Simple validation
+  if (!name || name.length < 2) {
+    return res.status(400).json({ message: 'Name is required and must be at least 2 characters.' });
+  }
+
+  if (!description || description.length < 5) {
+    return res.status(400).json({ message: 'Description must be at least 5 characters.' });
+  }
+
+  if (typeof price !== 'number' || price < 0) {
+    return res.status(400).json({ message: 'Price must be a positive number.' });
+  }
+
+  if (typeof inStock !== 'boolean') {
+    return res.status(400).json({ message: 'inStock must be a boolean.' });
+  }
+
+  if (!brand) {
+    return res.status(400).json({ message: 'Brand is required.' });
+  }
+
+  const product = {
+    name,
+    description,
+    price,
+    category: category || null,
+    inStock,
+    brand,
+    createdAt: createdAt ? new Date(createdAt) : new Date()
   };
   
   try {

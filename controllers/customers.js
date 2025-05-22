@@ -20,9 +20,21 @@ const mongodb = require('../data/database');
  };
 
 const createCustomer = async (req, res) => {
+ const { name, email } = req.body;
+
+  // ✅ Basic validation
+  if (!name || name.trim().length < 2) {
+    return res.status(400).json({ message: 'Name must be at least 2 characters long.' });
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    return res.status(400).json({ message: 'A valid email is required.' });
+  }
+
   const customer = {
-    name: req.body.name,
-    email: req.body.email
+    name: name.trim(),
+    email: email.trim()
   };
 
   try {
@@ -39,10 +51,23 @@ const createCustomer = async (req, res) => {
 
 const updateCustomer = async (req, res) => {
   const customerId = new ObjectId(req.params.id);
- const customer = {
-  name: req.body.name,
-  email: req.body.email
- };
+ 
+  const { name, email } = req.body;
+
+  // ✅ Basic validation
+  if (!name || name.trim().length < 2) {
+    return res.status(400).json({ message: 'Name must be at least 2 characters long.' });
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    return res.status(400).json({ message: 'A valid email is required.' });
+  }
+
+  const customer = {
+    name: name.trim(),
+    email: email.trim()
+  };
 
   try {
     const response = await mongodb.getDatabase().db().collection('customers').replaceOne({_id: customerId}, customer);
