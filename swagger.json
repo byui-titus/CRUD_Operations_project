@@ -5,7 +5,7 @@
     "description": "project Api",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "crud-operations-project-lmha.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
