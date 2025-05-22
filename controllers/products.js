@@ -36,7 +36,9 @@ const mongodb = require('../data/database');
     const response = await mongodb.getDatabase().db().collection('products').insertOne(product);
     if (response.acknowledged) {
         res.status(204).send();
-  } 
+  } else {
+        res.status(500).json(response.error || 'some error occured creating product.');
+  }
  } catch (err) {
     res.status(500).json(response.error || 'some error occured while creatiing product.');
  }
@@ -44,7 +46,6 @@ const mongodb = require('../data/database');
 
 const updateProduct = async (req, res) => {
   const productId = new ObjectId(req.params.id);
-
 
   const product  = {
     name: req.body.name,

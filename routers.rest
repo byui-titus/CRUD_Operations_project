@@ -2,5 +2,15 @@
 GET http://localhost:3000/products/
 
 ###getone 
-GET http://localhost:3000/products/
+GET http://localhost:3000/products
 
+###create one
+POST http://localhost:3000/productS HTTP/1.1
+Cotent-Content-Type: application/json 
+
+###upate one
+PUT http://localhost:3000/productS HTTP/1.1 
+Content-Type: application/json
+
+###delete one
+DELETE http://localhost:3000/productS/ HTTP/1.1
