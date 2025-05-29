@@ -49,7 +49,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
-//app.use('/', require('./routes'));
 
 app.get("/", (req, res) => {res.send(req.session.user !== undefined ? "Logged in" : "Logged Out")});
 
