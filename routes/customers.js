@@ -2,15 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 const CustomerCotroller = require('../controllers/customers');
+const { isAuthenticated } = require('../middleware/authenticate');
 
 router.get('/', CustomerCotroller.getAll);
 
 router.get('/:id', CustomerCotroller.getSingle);
 
-router.post('/', CustomerCotroller.createCustomer);
+router.post('/', isAuthenticated, CustomerCotroller.createCustomer);
 
-router.put('/:id', CustomerCotroller.updateCustomer);
+router.put('/:id', isAuthenticated, CustomerCotroller.updateCustomer);
 
-router.delete('/:id', CustomerCotroller.deleteCustomer);
+router.delete('/:id', isAuthenticated, CustomerCotroller.deleteCustomer);
 
 module.exports = router;
